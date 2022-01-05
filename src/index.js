@@ -1,6 +1,21 @@
 import '@johnsonandjohnson/mettle-components'
 import 'components'
+import 'features'
 import './css/index.css'
+
+import {
+  Router
+} from  'services'
+
+Router.defaultPath('login/')
+
+const $elems = Array.from(document.querySelectorAll('nav a[rel]'))
+  $elems.map(a => {
+    a.addEventListener('click', evt => {
+      evt.preventDefault()
+      Router.goto(a.getAttribute('rel'), a.getAttribute('title'))
+    })
+  })
 
 function component() {
   const element = document.createElement('div');
