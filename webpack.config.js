@@ -17,6 +17,11 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.html$/i,
+        exclude: /index\.html$/i,
+        type: 'asset/source',
+      },
     ],
   },
   output: {
@@ -39,7 +44,7 @@ module.exports = {
       //features: resolve(__dirname, 'src/features'),
       //mixins: resolve(__dirname, 'src/mixins'),
       //services: resolve(__dirname, 'src/services'),
-      //templates: resolve(__dirname, 'src/templates')
+      templates: resolve(__dirname, 'src/templates')
     },
     extensions: ['.js']
   },
