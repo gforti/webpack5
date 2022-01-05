@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 //const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin')
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const { resolve } = require('path')
@@ -25,6 +26,7 @@ module.exports = {
     ],
   },
   output: {
+    assetModuleFilename: 'assets/[name][ext]',
     clean: true,
     filename: 'main.js',
     path: resolve(__dirname, 'dist'),
@@ -36,6 +38,14 @@ module.exports = {
       template: './src/index.html',
       scriptLoading: 'module'
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './assets', globOptions: { ignore: ['*.js'] }, to: 'assets' },
+        //{ from: 'serve.template.js', to: 'serve.js', transform: transformContent },
+        //{ from: 'package.template.json', to: 'package.json', transform: transformContent },
+        //{ from: 'LICENSE.md', to: 'LICENSE.md' },
+      ]
+    })
   ],
   resolve: {
     alias: {
