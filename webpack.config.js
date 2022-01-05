@@ -1,14 +1,15 @@
+const UI_ENV_VARS = require('./environment.build')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 //const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin')
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const { resolve } = require('path')
+console.log(UI_ENV_VARS.UI_APP_PORT)
 
 
 
 module.exports = (env, argv) => {
-  console.log(env)
   const IS_BUILD = env.WEBPACK_BUILD
   return {
     devServer: {
@@ -21,9 +22,12 @@ module.exports = (env, argv) => {
       },
       host: '0.0.0.0',
       open: true,
-      //port: process.env.UI_APP_PORT,
+      port: UI_ENV_VARS.UI_APP_PORT,
     },
-    entry: './src/index.js',
+    entry: './src/main.js',
+    externals: {
+        environment: JSON.stringify(UI_ENV_VARS)
+    },
     module: {
       rules: [
         {

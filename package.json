@@ -13,6 +13,7 @@
     "copy-webpack-plugin": "^10.2.0",
     "csp-html-webpack-plugin": "^5.1.0",
     "css-loader": "^6.5.1",
+    "dotenv-extended": "^2.9.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "webpack": "^5.65.0",
