@@ -6,11 +6,30 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --mode production --config webpack.config.js",
     "build:beta": "./node_modules/.bin/webpack --mode development --config webpack.config.js",
-    "lint": "./node_modules/.bin/eslint --fix -c ./.eslintrc --ext .js ./src",
+    "lint:css": "./node_modules/.bin/stylelint './src/**/*.css'",
+    "lint:js": "./node_modules/.bin/eslint --fix -c ./.eslintrc --ext .js ./src",
+    "lint": "npm run lint:css && npm run lint:js",
     "pretest": "npm run lint",
     "start": "webpack serve --mode development",
     "test": "npm run unit",
     "unit": "./node_modules/.bin/karma start test/unit/karma.config.js"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "color-hex-case": "lower",
+      "indentation": null,
+      "no-empty-source": null,
+      "selector-type-no-unknown": [
+        true,
+        {
+          "ignore": [
+            "custom-elements",
+            "default-namespace"
+          ]
+        }
+      ]
+    }
   },
   "devDependencies": {
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
@@ -27,6 +46,8 @@
     "karma-jasmine": "^4.0.1",
     "karma-webpack": "^5.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard": "^24.0.0",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.2"
