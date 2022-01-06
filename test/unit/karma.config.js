@@ -1,0 +1,79 @@
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/6.3/config/configuration-file.html
+
+const UI_ENV_VARS = require('../../environment.build')
+const { join, resolve } = require('path')
+
+module.exports = function (config) {
+  config.set({
+    autoWatch: false,
+    basePath: '',
+    browsers: ['ChromeHeadless'],
+    colors: true,
+    concurrency: Infinity,
+    coverageIstanbulReporter: {
+      dir: join(__dirname, 'coverage'),
+      fixWebpackSourcePaths: true,
+      reports: ['lcov', 'text-summary']
+    },
+    customLaunchers: {
+      ChromeCustom: {
+        base: 'ChromeHeadless',
+        flags: []
+      }
+    },
+    files: [
+      { included: true, pattern: 'index.test.js', type: 'module', watched: false },
+    ],
+    frameworks: ['jasmine', 'webpack'],
+    logLevel: config.LOG_INFO,
+    plugins: [
+      require('karma-chrome-launcher'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-jasmine'),
+      require('karma-webpack'),
+    ],
+    port: 9876,
+    preprocessors: {
+      'index.test.js': ['webpack'],
+    },
+    reporters: ["dots", "coverage-istanbul"],
+    singleRun: true,
+    webpack: {
+      externals: {
+        environment: JSON.stringify(UI_ENV_VARS)
+      },
+      mode: 'production',
+      module: {
+        rules: [
+          {
+            enforce: 'post',
+            exclude: /(node_modules|index\.js|\.test\.js)$/,
+            test: /\.js/,
+            include: resolve(__dirname, '../..', 'src'),
+            use: '@jsdevtools/coverage-istanbul-loader'
+          },
+          {
+            test: /\.html$/i,
+            exclude: /index\.html$/i,
+            type: 'asset/source',
+          },
+        ]
+      },
+      resolve: {
+        alias: {
+          helper: resolve(__dirname, 'helper.js'),
+          components: resolve(__dirname, '../..', 'src/components'),
+          features: resolve(__dirname, '../..', 'src/features'),
+          services: resolve(__dirname, '../..', 'src/services'),
+          templates: resolve(__dirname, '../..', 'src/templates')
+        },
+        extensions: ['.js']
+      },
+      target: "web",
+    },
+    webpackMiddleware: {
+      noInfo: true
+    }
+  })
+}

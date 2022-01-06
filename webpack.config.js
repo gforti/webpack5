@@ -5,9 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 //const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin')
 // const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const { resolve } = require('path')
-console.log(UI_ENV_VARS.UI_APP_PORT)
-
-
 
 module.exports = (env, argv) => {
   const IS_BUILD = env.WEBPACK_BUILD
