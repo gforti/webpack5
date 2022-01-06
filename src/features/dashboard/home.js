@@ -1,8 +1,8 @@
+import HTML from './home.html'
+
 import {
   Router
 } from 'services'
-
-import HTML from './home.html'
 
 const HomeCtrl = async (req, next) => {
   const routeDisplay = document.querySelector('.route-display')
